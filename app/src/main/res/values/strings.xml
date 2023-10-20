@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SuperCalculator</string>
+    <string name="back_btn_content_description">Atrás</string>
 </resources>

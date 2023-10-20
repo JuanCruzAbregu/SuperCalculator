@@ -1,4 +1,4 @@
-package com.abregujuancruz.supercalculator.view
+package com.abregujuancruz.supercalculator.usecase.home.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
