@@ -2,7 +2,9 @@ package com.abregujuancruz.supercalculator.usecase.home.ui.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -50,12 +52,11 @@ private fun BuildButtons(
         val actionButton = buttonPair.first
         val onClick = buttonPair.second
         CmButton(
-            onClick = {
-                onClick()
-            },
+            onClick = { onClick() },
             type = actionButton.type ?: "primary",
             text = actionButton.title ?: ""
         )
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
