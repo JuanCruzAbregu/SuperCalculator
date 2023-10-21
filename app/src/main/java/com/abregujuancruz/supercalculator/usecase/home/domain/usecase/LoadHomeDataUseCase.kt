@@ -11,7 +11,7 @@ import javax.inject.Inject
 class LoadHomeDataUseCase @Inject constructor(
     private val homeRepository: HomeRepository
 ) {
-    suspend operator fun invoke(): Flow<HomeData> {
+    suspend operator fun invoke(): HomeData {
         return withContext(Dispatchers.IO) {
             homeRepository.recoverDataFromBase64()
         }

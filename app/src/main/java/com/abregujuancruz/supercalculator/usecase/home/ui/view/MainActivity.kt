@@ -4,12 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.abregujuancruz.supercalculator.usecase.home.ui.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -21,14 +17,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun initUI() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                setContent {
-                    CalculatorScreen(
-                        viewModel = viewModel
-                    )
-                }
+        viewModel.homeData.observe(this) {
+            setContent {
+                CalculatorScreen(
+                    homeData = it
+                )
             }
         }
     }
 }
+

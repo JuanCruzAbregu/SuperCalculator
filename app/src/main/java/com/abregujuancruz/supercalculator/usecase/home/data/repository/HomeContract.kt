@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface HomeContract {
 
-    suspend fun recoverDataFromBase64(): Flow<HomeData>
+    suspend fun recoverDataFromBase64(): HomeData
 
 }

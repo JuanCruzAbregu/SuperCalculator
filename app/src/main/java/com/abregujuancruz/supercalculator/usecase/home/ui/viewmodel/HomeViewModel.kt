@@ -1,12 +1,12 @@
 package com.abregujuancruz.supercalculator.usecase.home.ui.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.abregujuancruz.supercalculator.usecase.home.domain.usecase.LoadHomeDataUseCase
 import com.abregujuancruz.supercalculator.usecase.home.ui.model.HomeData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,8 +15,9 @@ class HomeViewModel @Inject constructor(
     private val loadHomeDataUseCase: LoadHomeDataUseCase
 ) : ViewModel() {
 
-    private var _homeData: MutableStateFlow<HomeData?> = MutableStateFlow(null)
-    val homeData: StateFlow<HomeData?> get() = _homeData
+
+    private var _homeData: MutableLiveData<HomeData> = MutableLiveData()
+    val homeData: LiveData<HomeData> get() = _homeData
 
     init {
         loadModelData()
@@ -24,9 +25,10 @@ class HomeViewModel @Inject constructor(
 
     private fun loadModelData() {
         viewModelScope.launch {
-            loadHomeDataUseCase.invoke().collect { data ->
-                _homeData.value = data
-            }
+            _homeData.postValue(
+                loadHomeDataUseCase.invoke()
+            )
         }
     }
 }
+
