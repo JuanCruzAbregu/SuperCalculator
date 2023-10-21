@@ -21,14 +21,16 @@ import com.abregujuancruz.supercalculator.utils.Actionable
 
 @Composable
 fun CalculatorScreen(
-    screenData: HomeData?
+    screenData: HomeData?,
 ) {
     val buttonLambdaPairs = screenData?.buttons?.map { Pair(it) {} }
 
     BaseScreenWithFooter(
         title = "Super Calculator",
         footer = {
-            BuildButtons(buttons = buttonLambdaPairs)
+            BuildButtons(
+                buttons = buttonLambdaPairs,
+            )
         }
     ) {
         Column(
@@ -39,7 +41,7 @@ fun CalculatorScreen(
                 .padding(16.dp)
         ) {
             InputCard(hintText = "Primer producto")
-            InputCard(hintText = "Segundo producto", true)
+            InputCard(hintText = "Segundo producto", isDone = true)
         }
     }
 }

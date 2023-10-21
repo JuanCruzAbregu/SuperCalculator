@@ -70,7 +70,8 @@ private fun PrimaryButton(
         },
         shape = CmTheme.shapes.buttonRoundedCornerShape,
         enabled = enabled,
-        colors = ButtonDefaults.buttonColors(containerColor = CmTheme.colors.cmPrimary500)
+        colors = ButtonDefaults
+            .buttonColors(containerColor = CmTheme.colors.cmSuccess600)
     ) {
         if (loading) {
             CircularProgressIndicator(
@@ -83,7 +84,7 @@ private fun PrimaryButton(
                 text = text,
                 style = CmTheme.typography.button.copy(
                     color =
-                    if (enabled) CmTheme.colors.cmNeutral100 else CmTheme.colors.cmNeutral500
+                    if (enabled) CmTheme.colors.cmNeutral100 else CmTheme.colors.cmSuccess600
                 )
             )
     }
@@ -105,7 +106,7 @@ private fun SecondaryButton(
         shape = CmTheme.shapes.buttonRoundedCornerShape,
         border = BorderStroke(
             width = CmTheme.dimens.secondaryButtonBorderStroke,
-            color = if (enabled) CmTheme.colors.cmPrimary500 else CmTheme.colors.cmNeutral500
+            color = if (enabled) CmTheme.colors.cmSuccess600 else CmTheme.colors.cmSuccess600
         ),
         colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.Unspecified),
         enabled = enabled
@@ -113,7 +114,7 @@ private fun SecondaryButton(
         if (loading)
             CircularProgressIndicator(
                 Modifier.size(16.dp),
-                color = CmTheme.colors.cmPrimary500,
+                color = CmTheme.colors.cmSuccess600,
                 strokeWidth = 1.5.dp
             )
         else
@@ -121,7 +122,7 @@ private fun SecondaryButton(
                 text = text,
                 style = CmTheme.typography.button.copy(
                     color =
-                    if (enabled) CmTheme.colors.cmPrimary500 else CmTheme.colors.cmNeutral500
+                    if (enabled) CmTheme.colors.cmSuccess600 else CmTheme.colors.cmNeutral600
                 )
             )
     }
