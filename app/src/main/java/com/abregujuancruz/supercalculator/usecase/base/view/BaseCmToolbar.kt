@@ -1,4 +1,4 @@
-package com.abregujuancruz.supercalculator.usecase.base
+package com.abregujuancruz.supercalculator.usecase.base.view
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.abregujuancruz.supercalculator.theme.CmTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -19,8 +20,8 @@ fun CustomToolbar(
     TopAppBar(
         title = {
             Text(
-                text = title
-//                style = EqTheme.typography.h2Medium
+                text = title,
+                style = CmTheme.typography.h2Medium
             )
         },
         modifier = modifier,

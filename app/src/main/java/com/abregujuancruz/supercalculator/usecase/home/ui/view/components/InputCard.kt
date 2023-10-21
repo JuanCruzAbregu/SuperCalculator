@@ -1,4 +1,4 @@
-package com.abregujuancruz.supercalculator.usecase.home.view.components
+package com.abregujuancruz.supercalculator.usecase.home.ui.view.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions

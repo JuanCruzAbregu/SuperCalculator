@@ -1,4 +1,4 @@
-package com.abregujuancruz.supercalculator.usecase.base
+package com.abregujuancruz.supercalculator.usecase.base.view
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -68,7 +68,7 @@ fun BaseScreenWithFooter(
                 if (collapsed) BottomShadow()
             }
             footer?.let {
-                Box(
+                Column(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 16.dp)

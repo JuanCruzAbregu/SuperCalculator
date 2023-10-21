@@ -1,6 +1,6 @@
 @file:Suppress("FunctionNaming", "TopLevelPropertyNaming")
 
-package com.abregujuancruz.supercalculator.usecase.base
+package com.abregujuancruz.supercalculator.usecase.base.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.material3.IconButton
