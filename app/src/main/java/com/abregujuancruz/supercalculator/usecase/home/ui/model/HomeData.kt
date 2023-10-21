@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 data class HomeData(
-    val buttons: List<ActionButton>? = null
+    val buttons: ArrayList<ActionButton>? = null
 ) : Parcelable

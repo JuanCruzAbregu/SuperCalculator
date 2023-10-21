@@ -1,4 +1,4 @@
-package com.abregujuancruz.supercalculator.di
+package com.abregujuancruz.supercalculator.di.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
