@@ -8,6 +8,7 @@ import com.abregujuancruz.supercalculator.usecase.home.domain.usecase.LoadHomeDa
 import com.abregujuancruz.supercalculator.usecase.home.ui.model.ActionButton
 import com.abregujuancruz.supercalculator.usecase.home.ui.model.HomeData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -50,7 +51,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun loadModelData() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             _homeData.postValue(
                 loadHomeDataUseCase.invoke()
             )
@@ -58,7 +59,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun setOnClickByType(button: ActionButton) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             if (button.isPrimaryButton()) {
                 setOnClickPrimary()
             } else {
@@ -73,38 +74,47 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun setOnClickPrimary() {
+        viewModelScope.launch(Dispatchers.Default) {
+            if (!_firstProductPrice.value.isNullOrEmpty() &&
+                !_secondProductQuantity.value.isNullOrEmpty() &&
+                !_firstProductQuantity.value.isNullOrEmpty() &&
+                !_secondProductQuantity.value.isNullOrEmpty()
+            ) {
+                val firstPrice = _firstProductPrice.value!!.toDouble()
+                val firstQuantity = _firstProductQuantity.value!!.toInt()
+                val secondPrice = _secondProductPrice.value!!.toDouble()
+                val secondQuantity = _secondProductQuantity.value!!.toInt()
 
-        if (!_firstProductPrice.value.isNullOrEmpty() &&
-            !_secondProductQuantity.value.isNullOrEmpty() &&
-            !_firstProductQuantity.value.isNullOrEmpty() &&
-            !_secondProductQuantity.value.isNullOrEmpty()
-        ) {
-            val firstPrice = _firstProductPrice.value!!.toDouble()
-            val firstQuantity = _firstProductQuantity.value!!.toInt()
-            val secondPrice = _secondProductPrice.value!!.toDouble()
-            val secondQuantity = _secondProductQuantity.value!!.toInt()
+                val total = firstPrice / firstQuantity
+                val total2 = secondPrice / secondQuantity
 
-            val total = firstPrice / firstQuantity
-            val total2 = secondPrice / secondQuantity
-
-            if (total < total2) {
-                _result.value = "El primer producto es más económico"
-                _function.value =
-                    "$" + String.format("%.2f", total) + " < $" + String.format("%.2f", total2)
-            } else {
-                _result.value = "El segundo producto es más económico"
-                _function.value =
-                    "$" + String.format("%.2f", total2) + " < $" + String.format("%.2f", total)
+                if (total < total2) {
+                    _result.value = "El primer producto es más económico"
+                    _function.value =
+                        "$" + String.format("%.2f", total) + " < $" + String.format("%.2f", total2)
+                } else {
+                    _result.value = "El segundo producto es más económico"
+                    _function.value =
+                        "$" + String.format("%.2f", total2) + " < $" + String.format("%.2f", total)
+                }
             }
         }
     }
 
-    fun onTextFieldChange(firstProductPrice: String, secondProductPrice: String, firstQuantity: String, secondQuantity: String) {
-        _firstProductPrice.value = firstProductPrice
-        _secondProductPrice.value = secondProductPrice
-        _firstProductQuantity.value = firstQuantity
-        _secondProductQuantity.value = secondQuantity
-        _enableCalculate.value = isValidProduct(firstProductPrice) && isValidProduct(secondProductPrice)
+    fun onTextFieldChange(
+        firstProductPrice: String,
+        secondProductPrice: String,
+        firstQuantity: String,
+        secondQuantity: String
+    ) {
+        viewModelScope.launch(Dispatchers.Default) {
+            _firstProductPrice.value = firstProductPrice
+            _secondProductPrice.value = secondProductPrice
+            _firstProductQuantity.value = firstQuantity
+            _secondProductQuantity.value = secondQuantity
+            _enableCalculate.value = isValidProduct(firstProductPrice) &&
+                    isValidProduct(secondProductPrice)
+        }
     }
 
     private fun isValidProduct(product: String): Boolean = product != ""

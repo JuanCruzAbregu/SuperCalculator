@@ -87,6 +87,7 @@ dependencies {
     // Compose
     implementation("androidx.activity:activity-compose:$activityVersion")
     implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
+    implementation("androidx.compose.runtime:runtime-tracing:1.0.0-alpha05")
     implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")

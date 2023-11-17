@@ -103,7 +103,7 @@ private fun BuildInputs(
             keyboardType = KeyboardType.Decimal
         )
         InputCard(
-            hintText = "Cantidad en unidades, cm3, metros, etc.",
+            hintText = "Cantidad en unidades",
             textValue = firstProductQuantity,
             onTextFieldChanged = {
                 viewModel.onTextFieldChange(
@@ -127,24 +127,28 @@ private fun BuildInputs(
         InputCard(
             hintText = "Precio",
             textValue = secondProductPrice,
-            onTextFieldChanged = { viewModel.onTextFieldChange(
-                firstProductPrice = firstProductPrice,
-                firstQuantity = firstProductQuantity,
-                secondProductPrice = it,
-                secondQuantity = secondProductQuantity
-            ) },
+            onTextFieldChanged = {
+                viewModel.onTextFieldChange(
+                    firstProductPrice = firstProductPrice,
+                    firstQuantity = firstProductQuantity,
+                    secondProductPrice = it,
+                    secondQuantity = secondProductQuantity
+                )
+            },
             keyboardType = KeyboardType.Decimal
         )
         InputCard(
-            hintText = "Cantidad en unidades, cm3, metros, etc.",
+            hintText = "Cantidad en unidades",
             isDone = true,
             textValue = secondProductQuantity,
-            onTextFieldChanged = { viewModel.onTextFieldChange(
-                firstProductPrice = firstProductPrice,
-                firstQuantity = firstProductQuantity,
-                secondProductPrice = secondProductPrice,
-                secondQuantity = it
-            ) },
+            onTextFieldChanged = {
+                viewModel.onTextFieldChange(
+                    firstProductPrice = firstProductPrice,
+                    firstQuantity = firstProductQuantity,
+                    secondProductPrice = secondProductPrice,
+                    secondQuantity = it
+                )
+            },
             keyboardType = KeyboardType.Number
         )
         Spacer(modifier = Modifier.height(48.dp))
