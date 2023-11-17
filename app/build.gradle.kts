@@ -73,12 +73,12 @@ android {
 dependencies {
 
     val hiltVersion = "2.48"
-    val hiltComposeVersion = "1.0.0"
+    val hiltComposeVersion = "1.1.0"
     val coreVersion = "1.12.0"
     val lifecycleVersion = "2.6.2"
-    val activityVersion = "1.8.0"
+    val activityVersion = "1.8.1"
     val composeBomVersion = "2023.09.00"
-    val navVersion = "2.7.4"
+    val navVersion = "2.7.5"
 
     // Hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
@@ -87,6 +87,7 @@ dependencies {
     // Compose
     implementation("androidx.activity:activity-compose:$activityVersion")
     implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling")

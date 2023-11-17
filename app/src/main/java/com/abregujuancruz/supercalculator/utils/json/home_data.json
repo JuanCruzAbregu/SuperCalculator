@@ -1,12 +1,12 @@
 {
-  "buttons": [
-    {
-      "type": "primary",
-      "title": "Calcular"
-    },
-    {
-      "type": "secondary",
-      "title": "Borrar"
-    }
-  ]
+    "buttons": [
+        {
+            "type": "primary",
+            "title": "Calcular"
+        },
+        {
+            "type": "secondary",
+            "title": "Borrar"
+        }
+    ]
 }

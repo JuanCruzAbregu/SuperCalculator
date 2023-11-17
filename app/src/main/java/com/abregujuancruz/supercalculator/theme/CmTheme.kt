@@ -7,9 +7,6 @@ import com.abregujuancruz.supercalculator.utils.Actionable
 
 object CmTheme {
 
-    val dimens: CmDimens
-        get() = CmDimens
-
     val colors: CmColors
         get() = defaultCmColors
 

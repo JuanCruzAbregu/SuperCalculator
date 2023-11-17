@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,8 +28,7 @@ fun CmButton(
     onClick: Actionable,
     type: String = PRIMARY,
     text: String = "",
-    enabled: Boolean = true,
-    loading: Boolean = false
+    enabled: Boolean = false,
 ) {
     val modifier = Modifier
         .fillMaxWidth()
@@ -42,16 +39,14 @@ fun CmButton(
             modifier = modifier,
             onClick = onClick,
             text = text,
-            enabled = enabled,
-            loading = loading
+            enabled = enabled
         )
     else
         PrimaryButton(
             modifier = modifier,
             onClick = onClick,
             text = text,
-            enabled = enabled,
-            loading = loading
+            enabled = enabled
         )
 }
 
@@ -60,33 +55,23 @@ private fun PrimaryButton(
     modifier: Modifier,
     onClick: Actionable,
     text: String,
-    enabled: Boolean,
-    loading: Boolean,
+    enabled: Boolean
 ) {
     Button(
         modifier = modifier,
-        onClick = if (!loading) onClick else {
-            {}
-        },
+        onClick = onClick,
         shape = CmTheme.shapes.buttonRoundedCornerShape,
         enabled = enabled,
         colors = ButtonDefaults
             .buttonColors(containerColor = CmTheme.colors.cmSuccess600)
     ) {
-        if (loading) {
-            CircularProgressIndicator(
-                Modifier.size(16.dp),
-                color = CmTheme.colors.cmNeutral100,
-                strokeWidth = 1.5.dp
+        Text(
+            text = text,
+            style = CmTheme.typography.button.copy(
+                color =
+                if (enabled) CmTheme.colors.cmNeutral100 else CmTheme.colors.cmSuccess600
             )
-        } else
-            Text(
-                text = text,
-                style = CmTheme.typography.button.copy(
-                    color =
-                    if (enabled) CmTheme.colors.cmNeutral100 else CmTheme.colors.cmSuccess600
-                )
-            )
+        )
     }
 }
 
@@ -95,36 +80,26 @@ private fun SecondaryButton(
     modifier: Modifier,
     onClick: Actionable,
     text: String,
-    enabled: Boolean,
-    loading: Boolean,
+    enabled: Boolean
 ) {
     OutlinedButton(
         modifier = modifier,
-        onClick = if (!loading) onClick else {
-            {}
-        },
+        onClick = onClick,
         shape = CmTheme.shapes.buttonRoundedCornerShape,
         border = BorderStroke(
-            width = CmTheme.dimens.secondaryButtonBorderStroke,
+            width = 1.dp,
             color = if (enabled) CmTheme.colors.cmSuccess600 else CmTheme.colors.cmSuccess600
         ),
         colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.Unspecified),
         enabled = enabled
     ) {
-        if (loading)
-            CircularProgressIndicator(
-                Modifier.size(16.dp),
-                color = CmTheme.colors.cmSuccess600,
-                strokeWidth = 1.5.dp
+        Text(
+            text = text,
+            style = CmTheme.typography.button.copy(
+                color =
+                if (enabled) CmTheme.colors.cmSuccess600 else CmTheme.colors.cmNeutral600
             )
-        else
-            Text(
-                text = text,
-                style = CmTheme.typography.button.copy(
-                    color =
-                    if (enabled) CmTheme.colors.cmSuccess600 else CmTheme.colors.cmNeutral600
-                )
-            )
+        )
     }
 }
 

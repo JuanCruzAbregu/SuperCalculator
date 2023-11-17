@@ -10,19 +10,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initUI()
     }
 
     private fun initUI() {
-        viewModel.homeData.observe(this) {
-            setContent {
-                CalculatorScreen(
-                    homeData = it
-                )
-            }
+        setContent {
+            CalculatorScreen(homeViewModel)
         }
     }
 }
