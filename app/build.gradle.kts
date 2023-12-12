@@ -13,7 +13,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.0")
+        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${ProjectConfig.detektVersion}")
     }
 }
 
@@ -24,13 +24,13 @@ detekt {
 
 android {
     namespace = "com.abregujuancruz.supercalculator"
-    compileSdk = 34
+    compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
         applicationId = "com.abregujuancruz.supercalculator"
-        minSdk = 21
-        targetSdk = 34
-        versionCode = 1
+        minSdk = ProjectConfig.minSdk
+        targetSdk = ProjectConfig.targetSdk
+        versionCode = ProjectConfig.codeVersion
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,7 +45,7 @@ android {
         }
     }
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(ProjectConfig.jdkVersion)
     }
     kapt {
         correctErrorTypes = true
@@ -54,7 +54,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = ProjectConfig.kotlinCompiler
     }
     packaging {
         resources {
@@ -66,27 +66,19 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = ProjectConfig.jvmTarget
     }
 }
 
 dependencies {
 
-    val hiltVersion = "2.48"
-    val hiltComposeVersion = "1.0.0"
-    val coreVersion = "1.12.0"
-    val lifecycleVersion = "2.6.2"
-    val activityVersion = "1.8.0"
-    val composeBomVersion = "2023.09.00"
-    val navVersion = "2.7.4"
-
     // Hilt
-    implementation("com.google.dagger:hilt-android:$hiltVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:$hiltComposeVersion")
-    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    implementation(libs.dagger.hilt)
+    implementation(libs.hilt.nav.compose)
+    kapt(libs.hilt.compiler)
     // Compose
-    implementation("androidx.activity:activity-compose:$activityVersion")
-    implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
+    implementation(libs.activity.compose)
+    implementation(platform(libs.compose.bom))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling")
@@ -94,13 +86,13 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose")
     implementation("androidx.lifecycle:lifecycle-runtime-compose")
-    implementation("androidx.navigation:navigation-compose:$navVersion")
+    implementation(libs.nav.compose)
     // Core
-    implementation("androidx.core:core-ktx:$coreVersion")
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
+    implementation(libs.core.ktx)
+    implementation(libs.gson)
+    implementation(libs.lifecycle.runtime)
     //Test
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.test)
+    androidTestImplementation(libs.espresso.core)
 }

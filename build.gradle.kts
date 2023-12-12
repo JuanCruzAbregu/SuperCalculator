@@ -4,6 +4,7 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.44.1" apply false
     id("com.google.devtools.ksp") version "1.8.10-1.0.9" apply false
     id("io.gitlab.arturbosch.detekt") version "1.23.0" apply true
+    id("com.android.library") version "8.1.4" apply false
 }
 
 buildscript {
@@ -13,6 +14,6 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.1.2")
+        classpath("com.android.tools.build:gradle:8.1.4")
     }
 }
