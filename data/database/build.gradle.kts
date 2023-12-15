@@ -17,7 +17,7 @@ detekt {
     config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
 }
 android {
-    namespace = "com.abregujuancruz.ui"
+    namespace = "com.abregujuancruz.database"
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
@@ -36,23 +36,12 @@ android {
             )
         }
     }
-    kotlin {
-        jvmToolchain(ProjectConfig.jdkVersion)
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = ProjectConfig.kotlinCompiler
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlin {
+        jvmToolchain(ProjectConfig.jdkVersion)
     }
     kotlinOptions {
         jvmTarget = ProjectConfig.jvmTarget
@@ -60,16 +49,6 @@ android {
 }
 
 dependencies {
-
-    // Compose
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose")
-
+    //Core
+    implementation(libs.core.ktx)
 }

@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 rootProject.name = "SuperCalculator"
 include(":app")
 include(":core:ui")
+include(":core:util")
+include(":data:database")
+include(":feature:home")

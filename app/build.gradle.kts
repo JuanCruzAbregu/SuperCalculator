@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("io.gitlab.arturbosch.detekt")
-    id("kotlin-parcelize")
     id("com.google.devtools.ksp")
     kotlin("kapt")
 }
@@ -18,8 +17,8 @@ buildscript {
 }
 
 detekt {
-    toolVersion = "1.23.0"
-    config.setFrom(file("../config/detekt/detekt.yml"))
+    toolVersion = ProjectConfig.detektVersion
+    config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
 }
 
 android {
@@ -50,16 +49,16 @@ android {
     kapt {
         correctErrorTypes = true
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
     buildFeatures {
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = ProjectConfig.kotlinCompiler
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -74,25 +73,14 @@ dependencies {
 
     // Hilt
     implementation(libs.dagger.hilt)
-    implementation(libs.hilt.nav.compose)
     kapt(libs.hilt.compiler)
-    // Compose
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose")
-    implementation(libs.nav.compose)
     // Core
     implementation(libs.core.ktx)
-    implementation(libs.gson)
-    implementation(libs.lifecycle.runtime)
-    //Test
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.junit.test)
-    androidTestImplementation(libs.espresso.core)
+    //Compose
+    implementation(libs.activity.compose)
+    //Modules
+    implementation(project(":core:ui"))
+    implementation(project(":core:util"))
+    implementation(project(":data:database"))
+    implementation(project(":feature:home"))
 }

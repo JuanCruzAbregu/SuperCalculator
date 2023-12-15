@@ -1,8 +1,11 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
     id("io.gitlab.arturbosch.detekt")
-
+    id("com.google.dagger.hilt.android")
+    kotlin("kapt")
 }
 buildscript {
     repositories {
@@ -12,12 +15,14 @@ buildscript {
         classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${ProjectConfig.detektVersion}")
     }
 }
+
 detekt {
     toolVersion = ProjectConfig.detektVersion
     config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
 }
+
 android {
-    namespace = "com.abregujuancruz.ui"
+    namespace = "com.abregujuancruz.home"
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
@@ -36,8 +41,15 @@ android {
             )
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     kotlin {
         jvmToolchain(ProjectConfig.jdkVersion)
+    }
+    kapt {
+        correctErrorTypes = true
     }
     buildFeatures {
         compose = true
@@ -45,23 +57,21 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = ProjectConfig.kotlinCompiler
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
     kotlinOptions {
         jvmTarget = ProjectConfig.jvmTarget
     }
 }
 
 dependencies {
-
-    // Compose
+    // Hilt
+    implementation(libs.dagger.hilt)
+    implementation(libs.hilt.nav.compose)
+    kapt(libs.hilt.compiler)
+    // Core
+    implementation(libs.core.ktx)
+    implementation(libs.gson)
+    implementation(libs.lifecycle.runtime)
+    //Compose
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation("androidx.compose.ui:ui")
@@ -72,4 +82,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose")
     implementation("androidx.lifecycle:lifecycle-runtime-compose")
 
+    //Modules
+    implementation(project(":core:ui"))
+    implementation(project(":core:util"))
+    implementation(project(":data:database"))
 }

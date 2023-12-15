@@ -1,7 +1,7 @@
 package com.abregujuancruz.supercalculator.di.repository
 
-import com.abregujuancruz.supercalculator.usecase.home.data.repository.HomeContract
-import com.abregujuancruz.supercalculator.usecase.home.data.repository.HomeRepository
+import com.abregujuancruz.home.data.repository.HomeContract
+import com.abregujuancruz.home.data.repository.HomeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Reusable
