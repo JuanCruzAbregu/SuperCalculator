@@ -1,12 +1,9 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
     id("io.gitlab.arturbosch.detekt")
-    id("com.google.devtools.ksp")
-    kotlin("kapt")
-}
 
+}
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -15,23 +12,19 @@ buildscript {
         classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${ProjectConfig.detektVersion}")
     }
 }
-
 detekt {
     toolVersion = ProjectConfig.detektVersion
     config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
 }
-
 android {
-    namespace = "com.abregujuancruz.supercalculator"
+    namespace = "com.abregujuancruz.ui"
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
-        applicationId = "com.abregujuancruz.supercalculator"
         minSdk = ProjectConfig.minSdk
-        targetSdk = ProjectConfig.targetSdk
-        versionCode = ProjectConfig.codeVersion
-        versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -46,19 +39,16 @@ android {
     kotlin {
         jvmToolchain(ProjectConfig.jdkVersion)
     }
-    kapt {
-        correctErrorTypes = true
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
     buildFeatures {
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = ProjectConfig.kotlinCompiler
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -71,16 +61,15 @@ android {
 
 dependencies {
 
-    // Hilt
-    implementation(libs.dagger.hilt)
-    kapt(libs.hilt.compiler)
-    // Core
-    implementation(libs.core.ktx)
-    //Compose
+    // Compose
     implementation(libs.activity.compose)
-    //Modules
-    implementation(project(":core:ui"))
-    implementation(project(":core:util"))
-    implementation(project(":data:database"))
-    implementation(project(":feature:home"))
+    implementation(platform(libs.compose.bom))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose")
+
 }

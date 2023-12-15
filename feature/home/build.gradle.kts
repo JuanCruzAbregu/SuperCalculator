@@ -1,12 +1,12 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
-    id("io.gitlab.arturbosch.detekt")
+    id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    id("io.gitlab.arturbosch.detekt")
+    id("com.google.dagger.hilt.android")
     kotlin("kapt")
 }
-
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -22,16 +22,14 @@ detekt {
 }
 
 android {
-    namespace = "com.abregujuancruz.supercalculator"
+    namespace = "com.abregujuancruz.home"
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
-        applicationId = "com.abregujuancruz.supercalculator"
         minSdk = ProjectConfig.minSdk
-        targetSdk = ProjectConfig.targetSdk
-        versionCode = ProjectConfig.codeVersion
-        versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -43,16 +41,15 @@ android {
             )
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     kotlin {
         jvmToolchain(ProjectConfig.jdkVersion)
     }
     kapt {
         correctErrorTypes = true
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
     }
     buildFeatures {
         compose = true
@@ -60,27 +57,33 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = ProjectConfig.kotlinCompiler
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
     kotlinOptions {
         jvmTarget = ProjectConfig.jvmTarget
     }
 }
 
 dependencies {
-
     // Hilt
     implementation(libs.dagger.hilt)
+    implementation(libs.hilt.nav.compose)
     kapt(libs.hilt.compiler)
     // Core
     implementation(libs.core.ktx)
+    implementation(libs.gson)
+    implementation(libs.lifecycle.runtime)
     //Compose
     implementation(libs.activity.compose)
+    implementation(platform(libs.compose.bom))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose")
+
     //Modules
     implementation(project(":core:ui"))
     implementation(project(":core:util"))
     implementation(project(":data:database"))
-    implementation(project(":feature:home"))
 }
