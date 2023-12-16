@@ -25,7 +25,7 @@ fun CalculatorScreen(
     viewModel: HomeViewModel
 ) {
 
-    val homeData by viewModel.homeData.collectAsStateWithLifecycle()
+    val homeData by viewModel.uiState.collectAsStateWithLifecycle()
     val buttonLambdaPairs = homeData?.buttons?.map { Pair(it) {} }
 
     BaseScreenWithFooter(

@@ -15,16 +15,17 @@ class HomeViewModel @Inject constructor(
     private val loadHomeDataUseCase: LoadHomeDataUseCase
 ) : ViewModel() {
 
-    private var _homeData: MutableStateFlow<HomeData?> = MutableStateFlow(null)
-    val homeData: StateFlow<HomeData?> get() = _homeData
+    private var _uiState: MutableStateFlow<HomeData?> = MutableStateFlow(null)
+    val uiState: StateFlow<HomeData?> get() = _uiState
+
     init {
         loadModelData()
     }
 
     private fun loadModelData() {
         viewModelScope.launch {
-            loadHomeDataUseCase.invoke().collect { data ->
-                _homeData.value = data
+            loadHomeDataUseCase().collect { homeData ->
+                _uiState.value = homeData
             }
         }
     }
